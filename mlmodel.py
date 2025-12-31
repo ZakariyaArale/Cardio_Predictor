@@ -4,6 +4,8 @@ import pandas as pd
 from sklearn.metrics import accuracy_score,confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+import matplotlib.pyplot as plt
+from sklearn.metrics import ConfusionMatrixDisplay
 
 #Read csv
 heart_csv_path = "cardio_train.csv"
@@ -29,3 +31,10 @@ predictions_heart = rand_forest_model.predict(val_X)
 print("Accuracy:", accuracy_score(val_y, predictions_heart)) 
 print("\nConfusion Matrix:\n", confusion_matrix(val_y, predictions_heart))
 print("\nClassification Report:\n", classification_report(val_y, predictions_heart))
+
+# Visualize Confusion Matrix
+cm = confusion_matrix(val_y, predictions_heart)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp.plot(cmap=plt.cm.Blues)  # optional: nicer color
+plt.title("Confusion Matrix - Cardiovascular Risk Prediction")
+plt.show()
